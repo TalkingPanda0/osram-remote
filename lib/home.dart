@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:ir_sensor_plugin/ir_sensor_plugin.dart';
 import 'package:osram_controller/ir.dart';
 import 'package:osram_controller/main.dart';
 
@@ -42,9 +45,45 @@ class Home extends StatefulWidget {
   HomeState createState() => HomeState();
 }
 
+void checkIREmitter(BuildContext context) async {
+  bool hasIR = await IrSensorPlugin.hasIrEmitter;
+  if(!hasIR)
+  {
+  	showDialog(context: context, builder: (BuildContext context) {
+		return AlertDialog(title: Text("No IR emitter detected!"),
+		content: Text("You need an IR emitter in order to use this app"),
+	actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Ignore'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Exit'),
+              onPressed: () {
+	      	exit(0);
+              },
+            ),
+          ],
+
+		);
+	} );
+  }
+
+}
+
 class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+	checkIREmitter(context);
+
     return Scaffold(
       body: Center(
         child: GridView.builder(
