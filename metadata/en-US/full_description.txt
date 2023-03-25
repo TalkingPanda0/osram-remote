@@ -1,0 +1,3 @@
+An android app for controlling Osram RGB lights using infrared.
+Your phone needs to have an IR emitter use this app.
+Currently only supports built-in IR emitters.
