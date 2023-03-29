@@ -79,10 +79,10 @@ packages:
     dependency: "direct main"
     description:
       name: ir_sensor_plugin
-      sha256: "441778a4ce22e5cdc35592a7a4de9518d47f6e2bcfa280886ca2322496ec6a9d"
+      sha256: "3c71a18cc72bc5e60a35e8ea0fff5d54852d47406fe9f32f33c912dec27fe449"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0"
+    version: "0.3.0"
   js:
     dependency: transitive
     description:
@@ -193,5 +193,5 @@ packages:
     source: hosted
     version: "2.1.4"
 sdks:
-  dart: ">=2.18.0 <3.0.0"
-  flutter: ">=2.0.0"
+  dart: ">=2.18.4 <3.0.0"
+  flutter: ">=3.0.0"
