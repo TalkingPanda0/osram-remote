@@ -1,10 +1,26 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:ir_sensor_plugin/ir_sensor_plugin.dart';
+import 'package:osram_controller/utils/remote.dart';
+import 'package:osram_controller/widgets/remote_view.dart';
 
-import 'home.dart';
+List<Remote> remotes = [];
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main(){
-  runApp(const MaterialApp(
-    home: Home(),
+  remotes = await readRemotes();
+
+  if (remotes.isEmpty) {
+    remotes = writeDefaultRemotes();
+  }
+
+  runApp(DynamicColorBuilder(
+    builder: (lightDynamic, darkDynamic) {
+      return MaterialApp(
+        title: "Osram Remote",
+        theme: ThemeData(colorScheme: lightDynamic, useMaterial3: true),
+        darkTheme: ThemeData(colorScheme: darkDynamic, useMaterial3: true),
+        home: RemoteView(remote: remotes[0]),
+      );
+    },
   ));
 }
