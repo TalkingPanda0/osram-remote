@@ -57,8 +57,8 @@ Future<List<Remote>> readRemotes() async {
     final file = await _remotesFile;
     final contents = await file.readAsString();
 
-    List<Remote> remotes = (jsonDecode(contents)).map((remote) {
-      List<IRButton> buttons = (remote["buttons"])
+    List<Remote> remotes = (jsonDecode(contents) as List).map((remote) {
+      List<IRButton> buttons = (remote["buttons"] as List)
           .map((button) => IRButton(
                 code: button['code'],
                 image: button['image'],
