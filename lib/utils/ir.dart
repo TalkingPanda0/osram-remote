@@ -1,7 +1,12 @@
-import 'package:ir_sensor_plugin/ir_sensor_plugin.dart';
+import 'package:flutter/services.dart';
+
+import 'package:osram_controller/utils/irtransmitter.dart';
+
+const platform = MethodChannel('org.talkingpanda/irtransmitter');
 
 void transmit(int code) async {
-  await IrSensorPlugin.transmitListInt(list: convertNECtoList(code));
+//Ir.transmit(carrierFrequency: 38028, pattern: convertNECtoList(code));
+  await platform.invokeMethod("transmit", {"list": convertNECtoList(code)});
 }
 
 // Converts a int code to timing list
