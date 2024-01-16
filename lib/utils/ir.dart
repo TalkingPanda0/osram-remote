@@ -1,7 +1,5 @@
 import 'package:flutter/services.dart';
 
-import 'package:osram_controller/utils/irtransmitter.dart';
-
 const platform = MethodChannel('org.talkingpanda/irtransmitter');
 
 void transmit(int code) async {

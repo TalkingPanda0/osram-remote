@@ -15,6 +15,11 @@ class RemoteView extends StatefulWidget {
 
 class RemoteViewState extends State<RemoteView> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(

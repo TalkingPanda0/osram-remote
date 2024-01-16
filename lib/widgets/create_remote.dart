@@ -15,12 +15,16 @@ class CreateRemote extends StatefulWidget {
 
 class _CreateRemoteState extends State<CreateRemote> {
   TextEditingController textEditingController = TextEditingController();
+  late Remote remote;
+  @override
+  void initState() {
+    remote = widget.remote ?? Remote(buttons: [], name: "Untitled Remote");
+    textEditingController.value = TextEditingValue(text: remote.name);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Remote remote =
-        widget.remote ?? Remote(buttons: [], name: "Untitled Remote");
-    textEditingController.value = TextEditingValue(text: remote.name);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -69,6 +73,7 @@ class _CreateRemoteState extends State<CreateRemote> {
                                   button: button,
                                 ),
                               ));
+
                           setState(() {
                             remote.buttons[index] = button;
                           });
@@ -109,10 +114,12 @@ class _CreateRemoteState extends State<CreateRemote> {
                         MaterialPageRoute(
                           builder: (context) => const CreateButton(),
                         ));
+
                     setState(() {
                       remote.buttons.add(button);
                     });
                   } catch (e) {
+                    print(e);
                     return;
                   }
                 },
