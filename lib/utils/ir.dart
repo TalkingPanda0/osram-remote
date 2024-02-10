@@ -7,6 +7,11 @@ void transmit(int code) async {
   await platform.invokeMethod("transmit", {"list": convertNECtoList(code)});
 }
 
+Future<bool> hasIrEmitter() async {
+//Ir.transmit(carrierFrequency: 38028, pattern: convertNECtoList(code));
+  return await platform.invokeMethod("hasIrEmitter");
+}
+
 // Converts a int code to timing list
 List<int> convertNECtoList(int nec) {
   List<int> list = [];

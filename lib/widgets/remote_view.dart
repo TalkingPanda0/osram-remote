@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:osram_controller/widgets/remote_list.dart';
 import 'package:osram_controller/utils/ir.dart';
 import 'package:osram_controller/utils/remote.dart';
@@ -21,6 +22,44 @@ class RemoteViewState extends State<RemoteView> {
 
   @override
   Widget build(BuildContext context) {
+    hasIrEmitter().then((value) => {
+          if (!value)
+            {
+              showDialog<void>(
+                context: context,
+                barrierDismissible: false, // user must tap button!
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('No IR emitter'),
+                    content: const SingleChildScrollView(
+                      child: ListBody(
+                        children: <Widget>[
+                          Text('This device does not have an IR emitter'),
+                          Text('This app needs an IR emitter to function'),
+                        ],
+                      ),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Dismiss'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('Close'),
+                        onPressed: () {
+                          SystemChannels.platform
+                              .invokeMethod('SystemNavigator.pop');
+                        },
+                      ),
+                    ],
+                  );
+                },
+              )
+            }
+        });
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
