@@ -18,7 +18,7 @@ import kotlin.reflect.typeOf
 
 class MainActivity: FlutterActivity() {
     private val CHANNEL = "org.talkingpanda/irtransmitter"
-    private lateinit var irManager: ConsumerIrManager
+    private var irManager: ConsumerIrManager? = null
     private fun convertIntegers(integers: List<Int>): IntArray? {
         val ret = IntArray(integers.size)
         val iterator = integers.iterator()
@@ -35,18 +35,26 @@ class MainActivity: FlutterActivity() {
                 call, result ->
             if (call.method == "transmit") {
                 val list = call.argument<ArrayList<Int>>("list")
+                if(irManager == null){
+                    result.success(null);
+                }
                 if(list == null) {
                     result.error( "NOPATTERN","No pattern given",null)
                 } else {
-                    irManager.transmit(38028,list.toIntArray());
+                    irManager?.transmit(38028,list.toIntArray());
                 }
                 result.success(null);
-            } else
-             {
+            } else if(call.method == "hasIrEmitter"){
+                if(irManager == null){
+                    result.success(false);
+                    
+                } else {
+                    result.success(irManager?.hasIrEmitter());
+                }
+                
+            } else 
                 result.notImplemented()
+                }
             }
         }
-   }
-
-}
 
