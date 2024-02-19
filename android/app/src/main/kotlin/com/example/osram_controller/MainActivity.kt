@@ -30,15 +30,14 @@ class MainActivity: FlutterActivity() {
     @RequiresApi(VERSION_CODES.O)
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        irManager = getSystemService(Context.CONSUMER_IR_SERVICE) as ConsumerIrManager;
+        irManager = getSystemService(Context.CONSUMER_IR_SERVICE) as? ConsumerIrManager;
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler {
                 call, result ->
             if (call.method == "transmit") {
                 val list = call.argument<ArrayList<Int>>("list")
                 if(irManager == null){
                     result.success(null);
-                }
-                if(list == null) {
+                } else if(list == null) {
                     result.error( "NOPATTERN","No pattern given",null)
                 } else {
                     irManager?.transmit(38028,list.toIntArray());
