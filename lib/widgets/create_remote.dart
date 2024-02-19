@@ -84,7 +84,9 @@ class _CreateRemoteState extends State<CreateRemote> {
                     )
                   : TextButton(
                       onLongPress: () {
-                        remote.buttons.removeAt(index);
+                        setState(() {
+                          remote.buttons.removeAt(index);
+                        });
                       },
                       onPressed: () async {
                         try {
@@ -105,25 +107,27 @@ class _CreateRemoteState extends State<CreateRemote> {
                       child: Text(button.image),
                     );
             } else {
-              return ElevatedButton(
-                child: const Icon(Icons.add),
-                onPressed: () async {
-                  try {
-                    IRButton button = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CreateButton(),
-                        ));
+              return Padding(
+                  padding: EdgeInsets.all(8),
+                  child: ElevatedButton(
+                    child: const Icon(Icons.add),
+                    onPressed: () async {
+                      try {
+                        IRButton button = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CreateButton(),
+                            ));
 
-                    setState(() {
-                      remote.buttons.add(button);
-                    });
-                  } catch (e) {
-                    print(e);
-                    return;
-                  }
-                },
-              );
+                        setState(() {
+                          remote.buttons.add(button);
+                        });
+                      } catch (e) {
+                        print(e);
+                        return;
+                      }
+                    },
+                  ));
             }
           },
         ),

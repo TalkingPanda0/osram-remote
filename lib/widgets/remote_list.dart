@@ -45,22 +45,25 @@ class _RemoteListState extends State<RemoteList> {
               return Card(
                 key: Key(index.toString()),
                 child: ListTile(
-                  // Add a icon button to remove the remote
                   trailing: Wrap(children: [
                     IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () {
-                        setState(() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CreateRemote(
-                                  remote: remotes[index],
-                                ),
-                              ));
-                        });
-                      },
-                    ),
+                        icon: const Icon(Icons.edit),
+                        onPressed: () async {
+                          try {
+                            Remote remote = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CreateRemote(
+                                    remote: remotes[index],
+                                  ),
+                                ));
+                            setState(() {
+                              remotes[index] = remote;
+                            });
+                          } catch (e) {
+                            return;
+                          }
+                        }),
                     IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {
