@@ -128,7 +128,7 @@ List<Remote> writeDefaultRemotes() {
     IRButton(code: 0xFF18E7, image: "assets/RED3.png", isImage: true),
     IRButton(code: 0xFF9867, image: "assets/GREEN3.png", isImage: true),
     IRButton(code: 0xFF58A7, image: "assets/BLUE3.png", isImage: true),
-    IRButton(code: 0xFFD82, image: "assets/SMOOTH.png", isImage: true),
+    IRButton(code: 0xFFD827, image: "assets/SMOOTH.png", isImage: true),
   ], name: "Osram Remote");
 
   writeRemotelist([osramRemote]);
